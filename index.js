@@ -29,31 +29,40 @@ const URL = 'https://cbu.uz/uz/arkhiv-kursov-valyut/json/'
 // bu bot valyuta kursini kurish uchun ishlatiladi
 
 bot.onText(/\/start/, msg => {
-  let {id, last_name, first_name, username} = msg.from
-  bot.sendMessage(id, `Assalomu alaykum <a href='tg://user?id=${id}'> ${first_name} ${last_name} </a> botimizga xush kelibsiz`, {
-    reply_markup: {
-      resize_keyboard: true,
-      one_time_keyboard: true,
-        keyboard: [
-        [
-          {
-            text: '💶EURO🇪🇺',
-            callback_data: 'EUR'
-          }, {
-            text: '💵DOLLOR🇺🇸',
-            callback_data: 'USD'
-          }, {
-            text: '💷FUNT🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-            callback_data: 'GBP'
-          }, {
-            text: '💴RUBL🇷🇺',
-            callback_data: 'RUB'
-          }
+    const variable={
+        resize_keyboard: true,
+        one_time_keyboard: true,
+          keyboard: [
+          [
+            {
+              text: '💶EURO🇪🇺',
+              callback_data: 'EUR'
+            }, {
+              text: '💵DOLLOR🇺🇸',
+              callback_data: 'USD'
+            }, {
+              text: '💷FUNT🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+              callback_data: 'GBP'
+            }, {
+              text: '💴RUBL🇷🇺',
+              callback_data: 'RUB'
+            }
+          ]
         ]
-      ]
-    },
+    }
+  let {id, last_name, first_name, username} = msg.from
+  if(last_name){
+      bot.sendMessage(id, `Assalomu alaykum <a href='tg://user?id=${id}'> ${first_name} ${last_name} </a> botimizga xush kelibsiz`, {
+        reply_markup: variable,
+        parse_mode:'HTML'
+      })
+    }
+    else{    
+    bot.sendMessage(id, `Assalomu alaykum <a href='tg://user?id=${id}'> @${username} </a> botimizga xush kelibsiz`, {
+    reply_markup: variable,
     parse_mode:'HTML'
-  })
+    })
+  }
 })
 
 bot.on('message',msg=>{
